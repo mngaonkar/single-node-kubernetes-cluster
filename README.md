@@ -1,5 +1,10 @@
 ### Create single node Kubernetes cluster on Ubuntu 16.04
 
+Make sure Python 2.7 is installed on Ubuntu 
+```
+apt-get install python
+```
+
 Install Ansible on Ubuntu
 ```
 sudo apt-get update
