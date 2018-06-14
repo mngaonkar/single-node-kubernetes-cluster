@@ -1,4 +1,13 @@
-### Create single node Kubernetes cluster
+### Create single node Kubernetes cluster on Ubuntu 16.04
+
+Install Ansible on Ubuntu
+```
+sudo apt-get update
+sudo apt-get install software-properties-common
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt-get update
+sudo apt-get install ansible
+```
 
 Install kubernetes by running Ansible playbook
 
