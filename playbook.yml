@@ -1,0 +1,4 @@
+---
+- hosts: ghost-master
+  roles:
+  - basics

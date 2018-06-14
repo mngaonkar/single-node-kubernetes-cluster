@@ -1,0 +1,67 @@
+- name: "Installing vim"
+  apt: pkg=vim state=installed
+
+- name: "Getting docker package key"
+  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+- name: "Getting kubernetes package key"
+  shell: curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+
+#- name: "Adding docker package repository"
+#  shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+- name: "Adding docker repo"
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable
+    state: present
+
+- name: "Adding kubernetes repo"
+  apt_repository:
+    repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+    state: present
+
+- name: "Update package list"
+  apt:
+    update_cache: yes
+
+- name: "Installing docker"
+  package: name=docker-ce state=present
+
+- name: "Enable docker service"
+  shell: systemctl enable docker
+
+- name: "Installing transport-https"
+  apt: pkg=apt-transport-https state=installed
+
+- name: "Installing kubernetes"
+  apt: name={{item}} state=installed
+  with_items:
+    - kubelet
+    - kubeadm
+    - kubectl
+    - selinux-utils
+
+- name: "Reset kubernetes"
+  shell: kubeadm reset
+  tags:
+    - reset
+
+- name: "Initializing kubernetes"
+  shell: kubeadm init --pod-network-cidr=192.168.0.0/16
+  tags:
+    - reset
+
+- name: "Configuring kubectl"
+  shell: mkdir -p $HOME/.kube;cp /etc/kubernetes/admin.conf $HOME/.kube/config;chown $(id -u):$(id -g) $HOME/.kube/config
+  tags:
+    - reset
+
+- name: "Configuring kubernetes network"
+  shell: kubectl apply -f https://docs.projectcalico.org/v3.0/getting-started/kubernetes/installation/hosted/kubeadm/1.7/calico.yaml
+  tags:
+    - network
+
+- name: "Configuring single node cluster"
+  shell: kubectl taint nodes --all node-role.kubernetes.io/master-
+  tags:
+    - configure
