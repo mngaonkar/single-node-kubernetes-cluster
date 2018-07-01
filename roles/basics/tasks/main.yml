@@ -42,7 +42,7 @@
     - selinux-utils
 
 - name: "Reset kubernetes"
-  shell: kubeadm reset
+  shell: kubeadm reset --force
   tags:
     - reset
 
