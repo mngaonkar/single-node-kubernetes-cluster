@@ -57,7 +57,7 @@
     - reset
 
 - name: "Configuring kubernetes network"
-  shell: kubectl apply -f https://docs.projectcalico.org/v3.0/getting-started/kubernetes/installation/hosted/kubeadm/1.7/calico.yaml
+  shell: kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
   tags:
     - network
 
