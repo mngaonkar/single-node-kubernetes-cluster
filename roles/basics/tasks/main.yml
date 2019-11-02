@@ -1,5 +1,5 @@
 - name: "Installing vim"
-  apt: pkg=vim state=installed
+  apt: pkg=vim state=present
 
 - name: "Getting docker package key"
   shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -31,10 +31,10 @@
   shell: systemctl enable docker
 
 - name: "Installing transport-https"
-  apt: pkg=apt-transport-https state=installed
+  apt: pkg=apt-transport-https state=present
 
 - name: "Installing kubernetes"
-  apt: name={{item}} state=installed
+  apt: name={{item}} state=present
   with_items:
     - kubelet
     - kubeadm
