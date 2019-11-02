@@ -17,7 +17,7 @@ sudo apt-get install ansible
 Install kubernetes by running Ansible playbook
 
 ```
-ansible-playbook playbook.yml
+sudo ansible-playbook playbook.yml
 ```
 
 Check the cluster state by running kubectl command in virtual machine.
