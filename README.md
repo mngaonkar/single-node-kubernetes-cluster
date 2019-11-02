@@ -1,4 +1,4 @@
-### Create single node Kubernetes cluster on Ubuntu 16.04
+### Create single node Kubernetes cluster on Ubuntu 18.04 (1 CPU, 2GB RAM)
 
 Make sure Python 2.7 is installed on Ubuntu 
 ```
