@@ -37,3 +37,10 @@ Kubernetes dashboard can be accessed as follows:
 kubectl proxy
 http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
 ```
+
+To login Kubernetes dashboard, generate bearer token as follows:
+```
+kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
+```
+
+Copy and paste the token in login screen.
