@@ -38,6 +38,16 @@ kubectl proxy
 http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
 ```
 
+Create service account as follows:
+```
+kubectl apply -f service-account.yaml
+```
+
+Create cluster role binding as follows:
+```
+kubectl apply -f cluster-role-binding.yaml
+```
+
 To login Kubernetes dashboard, generate bearer token as follows:
 ```
 kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
