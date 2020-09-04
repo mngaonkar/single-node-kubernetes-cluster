@@ -54,3 +54,28 @@ kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboar
 ```
 
 Copy and paste the token in login screen.
+
+To install ingress controller with Helm:
+```
+helm install my-release bitnami/nginx-ingress-controller --set hostNetwork=true,service.type=NodePort
+```
+
+Sample ingress configuration:
+```
+apiVersion: extensions/v1beta1
+  2   kind: Ingress
+  3   metadata:
+  4     annotations:
+  5       kubernetes.io/ingress.class: nginx
+  6     name: example
+  7     namespace: default
+  8   spec:
+  9     rules:
+ 10       - host: streamer.mngaonkar.com
+ 11         http:
+ 12           paths:
+ 13             - backend:
+ 14                 serviceName: go-video-streamer-service
+ 15                 servicePort: 80
+ 16               path: /
+```
